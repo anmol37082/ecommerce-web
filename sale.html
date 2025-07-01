@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flash Sale | Limited Time Offers</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f8f9fa, #f1f3f5);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            font-size: 2.2rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo span {
+            color: #ff4757;
+        }
+
+        .logo i {
+            color: #ff6b81;
+        }
+
+        .nav-icons {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-icon {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: #333;
+            font-size: 0.9rem;
+        }
+
+        .nav-icon i {
+            font-size: 1.6rem;
+            margin-bottom: 5px;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #ff4757;
+            color: white;
+            border-radius: 50%;
+            width: 22px;
+            height: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        .sale-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+        }
+
+        .sale-title {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            background: linear-gradient(45deg, #ff6b81, #ff4757);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+            display: inline-block;
+        }
+
+        .sale-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(to right, #ff6b81, #ff4757);
+            border-radius: 2px;
+        }
+
+        .sale-subtitle {
+            font-size: 1.3rem;
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+
+        .sale-banner {
+            background: linear-gradient(45deg, #ff6b81, #ff4757);
+            color: white;
+            border-radius: 15px;
+            padding: 40px;
+            margin: 30px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 10px 30px rgba(255, 107, 129, 0.3);
+        }
+
+        .banner-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .banner-content p {
+            font-size: 1.1rem;
+            max-width: 500px;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 32px;
+            background: white;
+            color: #ff4757;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .countdown {
+            display: flex;
+            gap: 15px;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+
+        .countdown-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 80px;
+        }
+
+        .countdown-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 5px;
+        }
+
+        .countdown-label {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin: 50px 0 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .section-title::after {
+            content: '';
+            flex-grow: 1;
+            height: 3px;
+            background: linear-gradient(to right, #ff6b81, #ff4757);
+            border-radius: 3px;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .discount-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: #ff4757;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            z-index: 2;
+        }
+
+        .product-image {
+            height: 250px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.05);
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-category {
+            color: #ff6b81;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .product-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
+        .product-price {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .current-price {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: #333;
+        }
+
+        .original-price {
+            text-decoration: line-through;
+            color: #999;
+            font-size: 1rem;
+        }
+
+        .save-price {
+            color: #ff4757;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .action-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .cart-btn {
+            background: linear-gradient(to right, #ff6b81, #ff4757);
+            color: white;
+        }
+
+        .cart-btn:hover {
+            background: linear-gradient(to right, #ff4757, #ff6b81);
+            transform: translateY(-3px);
+        }
+
+        .wishlist-btn {
+            background: #f1f2f6;
+            color: #333;
+        }
+
+        .wishlist-btn:hover {
+            background: #dfe4ea;
+            color: #ff6b81;
+        }
+
+        .featured-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 50px 0;
+        }
+
+        .category-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s ease;
+            position: relative;
+            height: 200px;
+        }
+
+        .category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .category-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 25px;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            color: white;
+        }
+
+        .category-content h3 {
+            font-size: 1.6rem;
+            margin-bottom: 10px;
+        }
+
+        .category-link {
+            color: white;
+            font-weight: 600;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        footer {
+            background: #2f3542;
+            color: white;
+            border-radius: 15px;
+            padding: 40px;
+            margin-top: 60px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+
+        .footer-column h3 {
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: #ff6b81;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: #dfe4ea;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #ff6b81;
+            padding-left: 5px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: #ff6b81;
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #a4b0be;
+        }
+
+        @media (max-width: 992px) {
+            .sale-banner {
+                flex-direction: column;
+                text-align: center;
+                gap: 30px;
+            }
+            
+            .banner-content {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sale-title {
+                font-size: 2.5rem;
+            }
+            
+            .countdown {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            header {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .sale-title {
+                font-size: 2rem;
+            }
+            
+            .countdown-item {
+                min-width: 70px;
+            }
+            
+            .countdown-value {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-tag"></i>
+                FLASH<span>SALE</span>
+            </div>
+            <div class="nav-icons">
+                <a href="#" class="nav-icon">
+                    <i class="fas fa-search"></i>
+                    <span>Search</span>
+                </a>
+                <a href="#" class="nav-icon">
+                    <i class="fas fa-user"></i>
+                    <span>Account</span>
+                </a>
+                <a href="#" class="nav-icon">
+                    <i class="fas fa-heart"></i>
+                    <span>Wishlist</span>
+                    <span class="cart-count">5</span>
+                </a>
+                <a href="#" class="nav-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>Cart</span>
+                    <span class="cart-count">3</span>
+                </a>
+            </div>
+        </header>
+
+        <div class="sale-header">
+            <h1 class="sale-title">MEGA SUMMER SALE</h1>
+            <p class="sale-subtitle">Huge discounts on thousands of products. Limited time offer - don't miss out!</p>
+        </div>
+
+        <div class="sale-banner">
+            <div class="banner-content">
+                <h2>UP TO 70% OFF</h2>
+                <p>End of season clearance sale on all summer collections. Shop now before it's too late!</p>
+                <a href="#" class="btn">SHOP NOW</a>
+            </div>
+            <div class="countdown">
+                <div class="countdown-item">
+                    <div class="countdown-value" id="days">02</div>
+                    <div class="countdown-label">Days</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-value" id="hours">12</div>
+                    <div class="countdown-label">Hours</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-value" id="minutes">45</div>
+                    <div class="countdown-label">Minutes</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-value" id="seconds">30</div>
+                    <div class="countdown-label">Seconds</div>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="section-title">Featured Sale Items</h2>
+
+        <div class="products-grid">
+            <!-- Product 1 -->
+            <div class="product-card">
+                <div class="discount-badge">50% OFF</div>
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Smart Watch">
+                </div>
+                <div class="product-info">
+                    <div class="product-category">ELECTRONICS</div>
+                    <h3 class="product-name">Premium Smart Watch Series 5</h3>
+                    <div class="product-price">
+                        <span class="current-price">$129.99</span>
+                        <span class="original-price">$259.99</span>
+                        <span class="save-price">Save $130</span>
+                    </div>
+                    <div class="product-actions">
+                        <button class="action-btn cart-btn">
+                            <i class="fas fa-shopping-cart"></i> Add to Cart
+                        </button>
+                        <button class="action-btn wishlist-btn">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="product-card">
+                <div class="discount-badge">60% OFF</div>
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Wireless Headphones">
+                </div>
+                <div class="product-info">
+                    <div class="product-category">AUDIO</div>
+                    <h3 class="product-name">Noise Cancelling Wireless Headphones</h3>
+                    <div class="product-price">
+                        <span class="current-price">$79.99</span>
+                        <span class="original-price">$199.99</span>
+                        <span class="save-price">Save $120</span>
+                    </div>
+                    <div class="product-actions">
+                        <button class="action-btn cart-btn">
+                            <i class="fas fa-shopping-cart"></i> Add to Cart
+                        </button>
+                        <button class="action-btn wishlist-btn">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 3 -->
+            <div class="product-card">
+                <div class="discount-badge">40% OFF</div>
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Running Shoes">
+                </div>
+                <div class="product-info">
+                    <div class="product-category">FOOTWEAR</div>
+                    <h3 class="product-name">Ultraboost Running Shoes</h3>
+                    <div class="product-price">
+                        <span class="current-price">$89.99</span>
+                        <span class="original-price">$149.99</span>
+                        <span class="save-price">Save $60</span>
+                    </div>
+                    <div class="product-actions">
+                        <button class="action-btn cart-btn">
+                            <i class="fas fa-shopping-cart"></i> Add to Cart
+                        </button>
+                        <button class="action-btn wishlist-btn">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 4 -->
+            <div class="product-card">
+                <div class="discount-badge">55% OFF</div>
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Bluetooth Speaker">
+                </div>
+                <div class="product-info">
+                    <div class="product-category">AUDIO</div>
+                    <h3 class="product-name">Portable Bluetooth Speaker</h3>
+                    <div class="product-price">
+                        <span class="current-price">$34.99</span>
+                        <span class="original-price">$79.99</span>
+                        <span class="save-price">Save $45</span>
+                    </div>
+                    <div class="product-actions">
+                        <button class="action-btn cart-btn">
+                            <i class="fas fa-shopping-cart"></i> Add to Cart
+                        </button>
+                        <button class="action-btn wishlist-btn">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 5 -->
+            <div class="product-card">
+                <div class="discount-badge">35% OFF</div>
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Camera">
+                </div>
+                <div class="product-info">
+                    <div class="product-category">PHOTOGRAPHY</div>
+                    <h3 class="product-name">Mirrorless Digital Camera</h3>
+                    <div class="product-price">
+                        <span class="current-price">$499.99</span>
+                        <span class="original-price">$769.99</span>
+                        <span class="save-price">Save $270</span>
+                    </div>
+                    <div class="product-actions">
+                        <button class="action-btn cart-btn">
+                            <i class="fas fa-shopping-cart"></i> Add to Cart
+                        </button>
+                        <button class="action-btn wishlist-btn">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 6 -->
+            <div class="product-card">
+                <div class="discount-badge">30% OFF</div>
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1491637639811-60e2756cc1c7?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Backpack">
+                </div>
+                <div class="product-info">
+                    <div class="product-category">ACCESSORIES</div>
+                    <h3 class="product-name">Waterproof Travel Backpack</h3>
+                    <div class="product-price">
+                        <span class="current-price">$55.99</span>
+                        <span class="original-price">$79.99</span>
+                        <span class="save-price">Save $24</span>
+                    </div>
+                    <div class="product-actions">
+                        <button class="action-btn cart-btn">
+                            <i class="fas fa-shopping-cart"></i> Add to Cart
+                        </button>
+                        <button class="action-btn wishlist-btn">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="section-title">Sale Categories</h2>
+
+        <div class="featured-categories">
+            <div class="category-card" style="background: url('https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80') center/cover;">
+                <div class="category-content">
+                    <h3>Fashion</h3>
+                    <a href="#" class="category-link">Shop Now <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            <div class="category-card" style="background: url('https://images.unsplash.com/photo-1468436139062-f60a71c5c892?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80') center/cover;">
+                <div class="category-content">
+                    <h3>Electronics</h3>
+                    <a href="#" class="category-link">Shop Now <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            <div class="category-card" style="background: url('https://images.unsplash.com/photo-1526178613552-2b45c6c302f0?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80') center/cover;">
+                <div class="category-content">
+                    <h3>Home & Kitchen</h3>
+                    <a href="#" class="category-link">Shop Now <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>FLASH SALE</h3>
+                    <p>Your premier destination for limited-time offers and exclusive discounts on top brands.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Shop</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">All Products</a></li>
+                        <li><a href="#">Featured Items</a></li>
+                        <li><a href="#">New Arrivals</a></li>
+                        <li><a href="#">Sale Collection</a></li>
+                        <li><a href="#">Bestsellers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Help</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Customer Service</a></li>
+                        <li><a href="#">Track Order</a></li>
+                        <li><a href="#">Returns & Exchanges</a></li>
+                        <li><a href="#">Shipping Info</a></li>
+                        <li><a href="#">FAQs</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Main St, New York</li>
+                        <li><i class="fas fa-phone"></i> (123) 456-7890</li>
+                        <li><i class="fas fa-envelope"></i> support@flashsale.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2023 Flash Sale. All rights reserved. Prices and availability are subject to change.
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Countdown timer functionality
+        function updateCountdown() {
+            const days = document.getElementById('days');
+            const hours = document.getElementById('hours');
+            const minutes = document.getElementById('minutes');
+            const seconds = document.getElementById('seconds');
+            
+            // Set the date we're counting down to (3 days from now)
+            const countDownDate = new Date();
+            countDownDate.setDate(countDownDate.getDate() + 2);
+            countDownDate.setHours(12, 45, 30, 0);
+            
+            // Update the count down every 1 second
+            const x = setInterval(function() {
+                // Get today's date and time
+                const now = new Date().getTime();
+                
+                // Find the distance between now and the count down date
+                const distance = countDownDate - now;
+                
+                // Time calculations for days, hours, minutes and seconds
+                const daysValue = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hoursValue = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutesValue = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const secondsValue = Math.floor((distance % (1000 * 60)) / 1000);
+                
+                // Display the results
+                days.textContent = daysValue.toString().padStart(2, '0');
+                hours.textContent = hoursValue.toString().padStart(2, '0');
+                minutes.textContent = minutesValue.toString().padStart(2, '0');
+                seconds.textContent = secondsValue.toString().padStart(2, '0');
+                
+                // If the count down is finished, write some text
+                if (distance < 0) {
+                    clearInterval(x);
+                    days.textContent = '00';
+                    hours.textContent = '00';
+                    minutes.textContent = '00';
+                    seconds.textContent = '00';
+                }
+            }, 1000);
+        }
+        
+        updateCountdown();
+        
+        // Add to cart functionality
+        const cartButtons = document.querySelectorAll('.cart-btn');
+        const cartCount = document.querySelector('.cart-count');
+        let count = 3;
+        
+        cartButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // Add animation
+                this.innerHTML = '<i class="fas fa-check"></i> ADDED!';
+                this.style.background = 'linear-gradient(to right, #2ed573, #1dd1a1)';
+                
+                // Update cart count
+                count++;
+                cartCount.textContent = count;
+                
+                // Reset button after delay
+                setTimeout(() => {
+                    this.innerHTML = '<i class="fas fa-shopping-cart"></i> Add to Cart';
+                    this.style.background = 'linear-gradient(to right, #ff6b81, #ff4757)';
+                }, 2000);
+            });
+        });
+        
+        // Wishlist functionality
+        const wishlistButtons = document.querySelectorAll('.wishlist-btn');
+        
+        wishlistButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const icon = this.querySelector('i');
+                if (icon.classList.contains('far')) {
+                    icon.classList.replace('far', 'fas');
+                    this.style.color = '#ff4757';
+                } else {
+                    icon.classList.replace('fas', 'far');
+                    this.style.color = '#333';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
